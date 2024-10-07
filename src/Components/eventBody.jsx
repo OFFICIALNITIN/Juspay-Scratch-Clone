@@ -27,12 +27,12 @@ export const EventBody = (props) => {
   const ref2 = React.useRef();
 
   // Position and transformation variables
-  let r = 0; // x position for sprite 1
+  let r = -100; // x position for sprite 1
   let t = 0; // y position for sprite 1
   let scale = 1;
   let angle = 0;
 
-  let r2 = 0; // x position for sprite 2
+  let r2 = 200; // x position for sprite 2
   let t2 = 0; // y position for sprite 2
   let scale2 = 1;
   let angle2 = 0;
@@ -78,11 +78,15 @@ export const EventBody = (props) => {
     if (action1) {
       r = x;
       t = y;
-      ref.current.style.transform = `translate(${r}px, ${t}px) scale(${scale}) rotate(${angle}deg)`;
+      ref.current.style.transform = `translate(${r || 0}px, ${
+        t || 0
+      }px) scale(${scale}) rotate(${angle}deg)`;
     } else {
       r2 = x;
       t2 = y;
-      ref2.current.style.transform = `translate(${r2}px, ${t2}px) scale(${scale2}) rotate(${angle2}deg)`;
+      ref2.current.style.transform = `translate(${r2 || 0}px, ${
+        t2 || 0
+      }px) scale(${scale2}) rotate(${angle2}deg)`;
     }
 
     // Check for collision after movement
@@ -131,9 +135,11 @@ export const EventBody = (props) => {
   }
 
   function rotateSprite(rAngle, i, action1) {
+    console.log(rAngle);
     setTimeout(() => {
       if (action1) {
         angle += rAngle;
+        console.log(rAngle);
       } else {
         angle2 += rAngle;
       }
@@ -205,7 +211,7 @@ export const EventBody = (props) => {
         break;
       }
 
-      case "rotate 20": {
+      case "turn 20": {
         rotateSprite(20, idx, action1);
         break;
       }
@@ -271,6 +277,7 @@ export const EventBody = (props) => {
   function runAction1() {
     actions &&
       actions.forEach((item, i) => {
+        console.log(item);
         startActions(item.todo, i, true);
       });
   }
@@ -295,6 +302,7 @@ export const EventBody = (props) => {
               {...provided.droppableProps}
             >
               <div className="moves__heading">Moves</div>
+              {console.log(moves)}
               {moves?.map((move, index) => (
                 <SingleAction
                   disableDelete={true}
