@@ -15,8 +15,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { WARN_MSG_POS, WARN_MSG_SIZE } from "../constants";
 
 // Import your sprite images
-import CatSprite from "../Assets/images/cat.png";
-import JerrySprite from "../Assets/images/jerry1.png";
+import CatSprite from "../Assets/images/cat2.svg";
+import JerrySprite from "../Assets/images/cat1.svg";
+import Positions from "./position";
+import { yellow } from "@mui/material/colors";
 
 export const EventBody = (props) => {
   const { moves, setMoves, actions, setActions, setActions2, actions2 } = props;
@@ -140,6 +142,10 @@ export const EventBody = (props) => {
   }
 
   function moveXY(xInput, yInput, random, i, action1) {
+    r = typeof r === "undefined" ? "0%" : r.toString();
+    r2 = typeof r2 === "undefined" ? "0%" : r2.toString();
+    t = typeof t === "undefined" ? "0%" : t.toString();
+    t2 = typeof t2 === "undefined" ? "0%" : t2.toString();
     // combined function to move to random postion and to x, y cordinates
     setTimeout(() => {
       let tempR = parseInt(action1 ? r.slice(0, -1) : r2.slice(0, -1));
@@ -233,9 +239,9 @@ export const EventBody = (props) => {
 
   // Refresh function to reset positions
   const refresh = (msg) => {
-    r = 0;
+    r = -100;
     t = 0;
-    r2 = 0;
+    r2 = 200;
     t2 = 0;
     scale2 = 1;
     angle2 = 0;
@@ -404,10 +410,10 @@ export const EventBody = (props) => {
         )}
 
         <div className="moves play" style={{}}>
-          <Draggable1
-            bounds={{ left: -540, top: -250, right: 540, bottom: 250 }}
-          >
-            <div style={{ display: "flex", flexDirection: "row" }}>
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <Draggable1
+              bounds={{ left: -800, top: -400, right: 800, bottom: 400 }}
+            >
               <div
                 ref={ref}
                 style={{
@@ -422,13 +428,20 @@ export const EventBody = (props) => {
                   style={{
                     cursor: "pointer",
                     position: "relative",
-                    height: 200,
-                    width: 200,
+                    height: "auto", // Adjust to maintain aspect ratio
+                    width: "auto", // Adjust to maintain aspect ratio
+                    maxHeight: "100px", // Set the maximum size based on your container
+                    maxWidth: "100px", // Set the maximum size based on your container
+                    objectFit: "contain", // Ensures the image fits within the outline
                     transition: "1s all ease",
                   }}
                 />
               </div>
-              {!displayAddIcon && (
+            </Draggable1>
+            {!displayAddIcon && (
+              <Draggable1
+                bounds={{ left: -800, top: -400, right: 800, bottom: 400 }}
+              >
                 <div
                   ref={ref2}
                   style={{
@@ -443,15 +456,18 @@ export const EventBody = (props) => {
                     style={{
                       cursor: "pointer",
                       position: "relative",
-                      height: 200,
-                      width: 200,
+                      height: "auto", // Adjust to maintain aspect ratio
+                      width: "auto", // Adjust to maintain aspect ratio
+                      maxHeight: "100px", // Set the maximum size based on your container
+                      maxWidth: "100px", // Set the maximum size based on your container
+                      objectFit: "contain", // Ensures the image fits within the outline
                       transition: "1s all ease",
                     }}
                   />
                 </div>
-              )}
-            </div>
-          </Draggable1>
+              </Draggable1>
+            )}
+          </div>
         </div>
       </div>
 
@@ -490,6 +506,7 @@ export const EventBody = (props) => {
             <RefreshIcon sx={{ color: "white" }} />
           </Button>
         </div>
+        <Positions handleMove={moveXY} refresh={refresh} />
       </div>
     </div>
   );

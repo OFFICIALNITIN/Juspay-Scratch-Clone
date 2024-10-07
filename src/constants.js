@@ -14,7 +14,7 @@ export const MOVES = [
   },
   {
     id: 9,
-    todo: "rotate 20",
+    todo: "turn 20",
   },
 ];
 export const WARN_MSG_SIZE = "Size out of bounds";

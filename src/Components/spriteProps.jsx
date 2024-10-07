@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 import { Box } from "@mui/material";
+import cat2 from "../Assets/images/cat2.svg";
+import cat1 from "../Assets/images/cat1.svg";
 
 export const Sprites = (props) => {
   const { sprite, sprite2, setSprite, setSprite2, displayAddIcon } = props;
   const spriteProps = [
     {
       id: 0,
-      src: require("../Assets/images/cat.png"),
+      src: cat2,
     },
     {
       id: 1,
-      src: require("../Assets/images/jerry1.png"),
+      src: cat1,
     },
   ];
   function handleClick(src) {
